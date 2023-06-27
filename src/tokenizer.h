@@ -36,6 +36,12 @@ char *token_start(char *str){
   
   char *ptr = str;
 
+  if(!ptr){
+
+    return ptr;
+    
+  }
+
   while(ptr && (!(space_char(*ptr)))){
 
     ptr++;
@@ -51,7 +57,18 @@ char *token_start(char *str){
 char *token_terminator(char *token);
 
 /* Counts the number of tokens in the string argument. */
-int count_tokens(char *str);
+int count_tokens(char *str){
+
+  int count;
+
+  for(count = 0; *str != '\0'; str++){
+
+    count++;
+    
+  }
+  return count;
+  
+}
 
 /* Returns a fresly allocated new zero-terminated string 
    containing <len> chars from <inStr> */
