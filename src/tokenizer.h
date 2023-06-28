@@ -20,7 +20,7 @@ int space_char(char c){
    Zero terminators are not printable (therefore false) */ 
 int non_space_char(char c){
 
-  if (c != ' ' || c != '\t'){
+  if (c != ' ' && c != '\t'){
 
     return 1;
 
@@ -98,19 +98,23 @@ int count_tokens(char *str){
    containing <len> chars from <inStr> */
 char *copy_str(char *inStr, short len){
 
-  char *copy;
-
-  int i;
+  char *copy = inStr;
+  char string[len];
   
-  for(i = 0; i < len; inStr++){
+  int i;
+  for(i = 0; i< len; i++){
 
-    *copy = *inStr;
+    string[i] = *copy;
+    
 
     copy++;
- 
+    
   }
-  
+
+  copy = string;
+  copy++;
   return copy;
+
 }
 
 
