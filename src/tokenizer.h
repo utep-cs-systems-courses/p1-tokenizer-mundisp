@@ -42,19 +42,43 @@ char *token_start(char *str){
     
   }
 
-  while(ptr && (!(space_char(*ptr)))){
-
-    ptr++;
-    
+  if(non_space_char(*ptr)){
+    return ptr;
   }
 
-  
+  else{
+    
+    while(ptr && (space_char(*ptr))){
+
+      ptr++;
+    
+    }
+  }
   return ptr;
 
 } 
 
 /* Returns a pointer terminator char following *token */
-char *token_terminator(char *token);
+char *token_terminator(char *token){
+
+  char *ptr = token;
+
+  if(!ptr){
+
+    return ptr;
+    
+  }
+  
+  while(ptr && (non_space_char(*ptr))){
+
+    ptr++;
+  }
+
+  ptr--;
+  return ptr;
+}
+
+
 
 /* Counts the number of tokens in the string argument. */
 int count_tokens(char *str){
@@ -72,7 +96,23 @@ int count_tokens(char *str){
 
 /* Returns a fresly allocated new zero-terminated string 
    containing <len> chars from <inStr> */
-char *copy_str(char *inStr, short len);
+char *copy_str(char *inStr, short len){
+
+  char *copy;
+
+  int i;
+  
+  for(i = 0; i < len; inStr++){
+
+    *copy = *inStr;
+
+    copy++;
+ 
+  }
+  
+  return copy;
+}
+
 
 /* Returns a freshly allocated zero-terminated vector of freshly allocated 
    space-separated tokens from zero-terminated str.
@@ -83,7 +123,16 @@ char *copy_str(char *inStr, short len);
      tokens[2] = "string" 
      tokens[3] = 0
 */
-char **tokenize(char* str);
+char **tokenize(char* str){
+
+  char [30] *tokens;
+
+  
+  
+}
+
+
+
 
 /* Prints all tokens. */
 void print_tokens(char **tokens);

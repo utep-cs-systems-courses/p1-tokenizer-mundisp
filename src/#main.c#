@@ -3,12 +3,14 @@
 
 void main(){
 
-  printf("%s","Welcome to the tokenizer, press 'c' to continue and 'e' to exit");
+  printf("Welcome to the tokenizer program, please type something.. press  to continue or
+ e to exit");
 
   char choice;
   fgets(choice, 1,stdin);
   
   char input[30];
+
 
   while(choice != 'e'){
 
@@ -20,6 +22,7 @@ void main(){
     fgets(choice, 1, stdin);
     
   }
+
   
   printf("Exiting program.. bye");
   return;
