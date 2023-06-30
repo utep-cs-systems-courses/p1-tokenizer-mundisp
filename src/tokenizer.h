@@ -74,7 +74,7 @@ char *token_terminator(char *token){
     ptr++;
   }
 
-  ptr--;
+  // ptr--;
   return ptr;
 }
 
@@ -83,15 +83,33 @@ char *token_terminator(char *token){
 /* Counts the number of tokens in the string argument. */
 int count_tokens(char *str){
 
-  int count;
+  int count = 0;
+  char *copy = str;
 
-  for(count = 0; *str != '\0'; str++){
+  //Skipping possible first whitespace
+  while(space_char(*copy)){
 
-    count++;
+    copy++;
     
   }
+  count++;
+
+  //Increasing pointer until reaching the end of a token
+  while(*copy){
+
+    if(non_space_char(*copy)){
+
+      copy++;
+    }
+    else{
+      count++;
+      copy++;
+      while(space_char(*copy)){
+	copy++;
+      }
+    }
+  }
   return count;
-  
 }
 
 /* Returns a fresly allocated new zero-terminated string 
@@ -106,15 +124,12 @@ char *copy_str(char *inStr, short len){
 
     string[i] = *copy;
     
-
     copy++;
-    
   }
 
   copy = string;
-  copy++;
+  // copy++;
   return copy;
-
 }
 
 
@@ -129,19 +144,44 @@ char *copy_str(char *inStr, short len){
 */
 char **tokenize(char* str){
 
-  char [30] *tokens;
+  char *copy = str;
+  int numTokens = count_tokens(str);
+  char **tokens = malloc((numTokens + 1) * sizeof(char **));
+  int i;
+  char *start;
+  char *end;
+  
+  for(i = 0; i < numTokens; i++){
 
-  
-  
+    copy = token_start(copy);
+    end = token_terminator(copy);
+    tokens[i] = copy_str(copy, end - copy);
+    copy = end;
+  }
+  return tokens;
 }
 
 
 
 
 /* Prints all tokens. */
-void print_tokens(char **tokens);
+void print_tokens(char **tokens){
+
+  while(*tokens){
+    printf("%s", *tokens);
+    tokens++;
+  }
+}
 
 /* Frees all tokens and the vector containing themx. */
-void free_tokens(char **tokens);
+void free_tokens(char **tokens){
+
+  while(*tokens){
+    free(*tokens);
+    *tokens = NULL;
+    tokens++;
+  }
+  free(tokens);
+}
 
 #endif
